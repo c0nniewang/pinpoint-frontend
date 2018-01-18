@@ -6,22 +6,24 @@ import Map from './Map'
 
 class MapContainer extends React.PureComponent {
   state = {
-    isMarkerShown: false,
+    isMarkerShown: true,
+    markers: []
   }
 
   componentDidMount() {
-    this.delayedShowMarker()
+    // grab markers from DB
   }
 
-  delayedShowMarker = () => {
-    setTimeout(() => {
-      this.setState({ isMarkerShown: true })
-    }, 3000)
-  }
+  // delayedShowMarker = () => {
+  //   setTimeout(() => {
+  //     this.setState({ isMarkerShown: true })
+  //   }, 3000)
+  // }
 
-  handleMarkerClick = () => {
-    this.setState({ isMarkerShown: false })
-    this.delayedShowMarker()
+  handleMarkerClick = (event) => {
+    // this.setState({ isMarkerShown: false })
+    console.log(event.latLng.lat())
+    // this.delayedShowMarker()
   }
 
   render() {
