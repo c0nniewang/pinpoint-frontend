@@ -1,26 +1,10 @@
 import React from "react"
 import { compose, withProps } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
+import Map from './Map'
 
-const MyMapComponent = compose(
-  withProps({
-    googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places",
-    loadingElement: <div style={{ height: `100%` }} />,
-    containerElement: <div style={{ height: `400px` }} />,
-    mapElement: <div style={{ height: `100%` }} />,
-  }),
-  withScriptjs,
-  withGoogleMap
-)((props) =>
-  <GoogleMap
-    defaultZoom={8}
-    defaultCenter={{ lat: -34.397, lng: 150.644 }}
-  >
-    {props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} onClick={props.onMarkerClick} />}
-  </GoogleMap>
-)
 
-class MyFancyComponent extends React.PureComponent {
+class MapContainer extends React.PureComponent {
   state = {
     isMarkerShown: false,
   }
@@ -42,7 +26,8 @@ class MyFancyComponent extends React.PureComponent {
 
   render() {
     return (
-      <MyMapComponent
+      <Map
+        currentLocation={{lat: 43.587332, lng: -110.829230}}
         isMarkerShown={this.state.isMarkerShown}
         onMarkerClick={this.handleMarkerClick}
       />
@@ -50,4 +35,4 @@ class MyFancyComponent extends React.PureComponent {
   }
 }
 
-export default MyMapComponent;
+export default MapContainer;
