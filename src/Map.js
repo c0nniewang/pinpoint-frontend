@@ -1,6 +1,7 @@
 import React from "react"
 import { compose, withProps } from "recompose"
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
+import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps";
+import MarkerComp from './MarkerComp'
 
 
 const Map = compose(
@@ -18,7 +19,8 @@ const Map = compose(
     defaultCenter={props.currentLocation}
   >
     {console.log(props)}
-    {props.isMarkerShown && <Marker position={{ lat: 43.587332, lng: -110.829230}} onClick={props.onMarkerClick} />}
+    {props.markers.map(marker => <MarkerComp properties={marker}/>)}
+    // {props.isMarkerShown && <MarkerComp />}
   </GoogleMap>
 )
 
