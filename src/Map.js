@@ -2,9 +2,11 @@ import React from "react"
 import { compose, withProps, lifecycle } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps";
 import MarkerComp from './MarkerComp'
+const { MarkerWithLabel } = require("react-google-maps/lib/components/addons/MarkerWithLabel");
 const { SearchBox } = require("react-google-maps/lib/components/places/SearchBox")
 const google = window.google
 const _ = require("lodash");
+
 
 
 const Map = compose(
@@ -45,7 +47,7 @@ const Map = compose(
               bounds.extend(place.geometry.location)
             }
           });
-          console.log('places looks like', places[0])
+          // console.log('places looks like', places[0])
           const nextMarkers = places.map(place => ({
             position: {lat: place.geometry.viewport.f.f, lng: place.geometry.viewport.b.b}
           }));
@@ -68,7 +70,7 @@ const Map = compose(
     defaultCenter={props.currentLocation}
     center={props.center}
   >
-  {console.log(props)}
+  {console.log(props.markers[0].position)}
   {props.existingMarkers.map((marker, index) => <MarkerComp key={index} properties={marker} onMarkerClick={props.onMarkerClick}/>)}
 
   <SearchBox
@@ -95,11 +97,24 @@ const Map = compose(
       }}
     />
   </SearchBox>
-  {props.markers.map((marker, index) =>
-    <Marker key={index} position={marker.position}/>
-  )}
-
+    {props.markers[0] ?
+        <MarkerWithLabel
+          position={{props.markers[0].position}}
+          labelAnchor={new google.maps.Point(0, 0)}
+          labelStyle={{backgroundColor: "yellow", fontSize: "32px", padding: "16px"}}
+        >
+          <div>Hello There!</div>
+        </MarkerWithLabel>
+        : null}
   </GoogleMap>
 )
 
 export default Map;
+
+
+
+
+
+// {props.markers.map((marker, index) =>
+//   <Marker key={index} position={marker.position}/>
+// )}
