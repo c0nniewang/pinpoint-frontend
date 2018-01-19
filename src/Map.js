@@ -45,7 +45,7 @@ const Map = compose(
               bounds.extend(place.geometry.location)
             }
           });
-          
+
           const nextMarkers = places.map(place => ({
             position: {lat: place.geometry.viewport.f.f, lng: place.geometry.viewport.b.b}
           }));
@@ -69,7 +69,7 @@ const Map = compose(
     center={props.center}
   >
   {console.log(props)}
-  {props.existingMarkers.map((marker, index) => <MarkerComp key={index} properties={marker}/>)}
+  {props.existingMarkers.map((marker, index) => <MarkerComp key={index} properties={marker} onMarkerClick={props.onMarkerClick}/>)}
 
   <SearchBox
     ref={props.onSearchBoxMounted}
@@ -96,7 +96,7 @@ const Map = compose(
     />
   </SearchBox>
   {props.markers.map((marker, index) =>
-    <Marker key={index} position={marker.position} />
+    <Marker key={index} position={marker.position}/>
   )}
 
   </GoogleMap>
