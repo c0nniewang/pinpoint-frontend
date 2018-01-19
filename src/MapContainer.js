@@ -15,7 +15,9 @@ class MapContainer extends React.PureComponent {
     markers: [],
     categories: [],
     newMarker: [],
-    showForm: false
+    showForm: false,
+    nameValue: '',
+    descValue: '',
   }
 
 
@@ -39,12 +41,36 @@ class MapContainer extends React.PureComponent {
     this.setState({newMarker: marker, showForm: true})
   }
 
+  nameInput = (event) => {
+    this.setState({
+      nameValue: event.target.value
+    })
+  }
+
+  descInput = (event) => {
+    this.setState({
+      descValue: event.target.value
+    })
+  }
+
+  handleCatChange = (event) => {
+    this.setState({
+      currentCat: event.target.value
+    })
+  }
+
+  newActivity = () => {
+
+  }
+
+
+
 
   render() {
     return (
       <div className="ui two column stackable grid">
         <div className="column">
-          {this.state.showForm ? <Form newMarker={this.state.newMarker} categories={this.state.categories} /> : <p>Text</p>}
+          {this.state.showForm ? <Form newMarker={this.state.newMarker} categories={this.state.categories} newActivity={this.newActivity} /> : <p>Text</p>}
         </div>
         <div className="column">
           <Map
