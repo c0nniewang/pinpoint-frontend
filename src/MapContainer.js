@@ -31,12 +31,14 @@ class MapContainer extends React.PureComponent {
 
   render() {
     return (
-      <Map
-        existingMarkers={this.state.markers}
-        currentLocation={{lat: 43.587332, lng: -110.829230}}
-        isMarkerShown={this.state.isMarkerShown}
-        onMarkerClick={this.handleMarkerClick}
-      />
+      <div class="ui eight column">
+        <Map
+          existingMarkers={this.state.markers}
+          currentLocation={{lat: 43.587332, lng: -110.829230}}
+          isMarkerShown={this.state.isMarkerShown}
+          onMarkerClick={this.handleMarkerClick}
+        />
+        </div>
     )
   }
 }
