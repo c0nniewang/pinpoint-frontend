@@ -28,10 +28,14 @@ class MapContainer extends React.PureComponent {
     // this.delayedShowMarker()
   }
 
+  renderForm = (event) => {
+    
+  }
+
 
   render() {
     return (
-      <div className="eight wide column">
+      <div className="column">
         <Map
           existingMarkers={this.state.markers}
           currentLocation={{lat: 43.587332, lng: -110.829230}}

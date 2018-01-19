@@ -12,7 +12,7 @@ const Map = compose(
     googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places",
     loadingElement: <div style={{ height: `100%` }} />,
     containerElement: <div style={{ height: `400px` }} />,
-    mapElement: <div style={{ height: `100%`, width: `75%`}} />,
+    mapElement: <div style={{ height: `100%`, width: `100%`}} />,
   }),
   lifecycle({
     componentWillMount() {
@@ -45,7 +45,7 @@ const Map = compose(
               bounds.extend(place.geometry.location)
             }
           });
-
+          console.log('places looks like', places[0])
           const nextMarkers = places.map(place => ({
             position: {lat: place.geometry.viewport.f.f, lng: place.geometry.viewport.b.b}
           }));

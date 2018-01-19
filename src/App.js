@@ -7,7 +7,7 @@ class App extends Component {
   render() {
     return (
       <div className="ui grid container">
-        <div className="sixteen wide column">
+        <div className="ui two column stackable grid">
           <FormContainer />
           <MapContainer />
         </div>
