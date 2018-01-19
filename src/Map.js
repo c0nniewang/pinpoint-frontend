@@ -20,9 +20,7 @@ const Map = compose(
 
       this.setState({
         bounds: null,
-        center: {
-          lat: 41.9, lng: -87.624
-        },
+        center: {lat: 43.587332, lng: -110.829230},
         markers: [],
         onMapMounted: ref => {
           refs.map = ref;
@@ -47,11 +45,12 @@ const Map = compose(
               bounds.extend(place.geometry.location)
             }
           });
+          
           const nextMarkers = places.map(place => ({
-            position: place.geometry.location,
+            position: {lat: place.geometry.viewport.f.f, lng: place.geometry.viewport.b.b}
           }));
           const nextCenter = _.get(nextMarkers, '0.position', this.state.center);
-          console.log("places", places[0])
+
           this.setState({
             center: nextCenter,
             markers: nextMarkers,
@@ -65,8 +64,9 @@ const Map = compose(
   withGoogleMap
 )((props) =>
   <GoogleMap
-    defaultZoom={8}
+    defaultZoom={15}
     defaultCenter={props.currentLocation}
+    center={props.center}
   >
   {console.log(props)}
   {props.existingMarkers.map((marker, index) => <MarkerComp key={index} properties={marker}/>)}
