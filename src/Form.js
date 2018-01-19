@@ -11,21 +11,39 @@ class Form extends React.Component {
     }
   }
 
-  const categories = props.categories.map(cat => {
-    return <option key={cat.id} value={cat.id}>{cat.name}</option>
-  })
+  handleNameInput = (ev) => {
+    this.setState({
+      nameInput: ev.target.value
+    })    
+  }
+
+  handleDescInput = (ev) => {
+    this.setState({
+      descInput: ev.target.value
+    })
+  }
+
+  handleCatChange = (ev) => {
+    this.setState({
+      currentCat: ev.target.value
+    })
+  }
 
 
   render() {
+    const categories = this.props.categories.map(cat => {
+      return <option key={cat.id} value={cat.id}>{cat.name}</option>
+    })
+
     return (
-        <form className="ui form" onSubmit={props.newActivity}>
+        <form className="ui form" >
             <h4 className="ui dividing header">New Activity</h4>
               <div className="field">
                 <label>Name</label>
                     <div className="field">
                       <input
-                      onChange={props.nameInput}
-                      value={props.nameValue}
+                      onChange={this.handleNameInput}
+                      value={this.state.nameValue}
                       type="text"
                       name="shipping[first-name]" />
                     </div>
@@ -34,22 +52,22 @@ class Form extends React.Component {
                 <label>Description</label>
                     <div className="field">
                       <textarea
-                      onChange={props.descInput}
-                      value={props.descValue}>
+                      onChange={this.handleDescInput}
+                      value={this.state.descValue}>
                       </textarea>
                     </div>
               </div>
               <div className="field">
                 <label>Category</label>
                 <select
-                onChange={props.handleCatChange}
-                value={props.CatValue}
+                onChange={this.handleCatChange}
+                value={this.state.currentCat}
                 className="ui fluid dropdown">
                   <option value="">Select Category</option>
                   {categories}
                 </select>
               </div>
-              <div className="ui submit button">Submit</div>
+              <div className="ui submit button" onClick={() => this.props.newActivity(this.state)}>Submit</div>
           </form>
     )
   }
