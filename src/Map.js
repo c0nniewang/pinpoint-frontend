@@ -70,7 +70,7 @@ const Map = compose(
     defaultCenter={props.currentLocation}
     center={props.center}
   >
-  {console.log(props.markers[0].position)}
+  
   {props.existingMarkers.map((marker, index) => <MarkerComp key={index} properties={marker} onMarkerClick={props.onMarkerClick}/>)}
 
   <SearchBox
@@ -99,11 +99,12 @@ const Map = compose(
   </SearchBox>
     {props.markers[0] ?
         <MarkerWithLabel
-          position={{props.markers[0].position}}
+          onClick={() => props.renderForm(props.markers[0])}
+          position={{...props.markers[0].position}}
           labelAnchor={new google.maps.Point(0, 0)}
-          labelStyle={{backgroundColor: "yellow", fontSize: "32px", padding: "16px"}}
+          labelStyle={{backgroundColor: "white", fontSize: "17px", padding: "10px"}}
         >
-          <div>Hello There!</div>
+          <div>Add New Activity</div>
         </MarkerWithLabel>
         : null}
   </GoogleMap>

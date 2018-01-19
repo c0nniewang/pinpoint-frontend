@@ -13,7 +13,9 @@ class MapContainer extends React.PureComponent {
   state = {
     isMarkerShown: true,
     markers: [],
-    categories: []
+    categories: [],
+    newMarker: [],
+    showForm: false
   }
 
 
@@ -32,8 +34,9 @@ class MapContainer extends React.PureComponent {
     // this.delayedShowMarker()
   }
 
-  renderForm = (event) => {
-
+  renderForm = (marker) => {
+    console.log(marker)
+    this.setState({newMarker: marker, showForm: true})
   }
 
 
@@ -41,10 +44,11 @@ class MapContainer extends React.PureComponent {
     return (
       <div className="ui two column stackable grid">
         <div className="column">
-          <Form categories={this.state.categories}/>
+          {this.state.showForm ? <Form newMarker={this.state.newMarker} categories={this.state.categories} /> : <p>Text</p>}
         </div>
         <div className="column">
           <Map
+            renderForm={this.renderForm}
             existingMarkers={this.state.markers}
             currentLocation={{lat: 43.587332, lng: -110.829230}}
             isMarkerShown={this.state.isMarkerShown}
