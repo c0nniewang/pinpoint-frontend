@@ -5,17 +5,13 @@ import { Link } from 'react-router-dom';
 const Activities = (props) => {
   return <div className="ui cards">
     {props.activities.map(act => {
-      console.log('this is what act is', act)
-      return
-              <div className="card">
+      return  <div className="card">
                   <div className="content">
-                      <div className="header">
-                        {act.name}
-                      </div>
+                      <Link to={`/profile/activities/${act.id}`}><div className="header">{act.name}</div></Link>
                       <div className="meta">{act.category_name}</div>
                       <div className="description">{act.description}</div>
                   </div>
-              </div>
+                </div>
     })}
   </div>
 }

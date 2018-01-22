@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default class Navbar extends React.Component {
   constructor(props) {
@@ -15,7 +16,7 @@ export default class Navbar extends React.Component {
         <a className="item">
           <h2 className="ui header">
             <i className="paint brush" />
-            <div className="content">{this.props.title}</div>
+            <Link to="/profile/activities"><div className="content">{this.props.title}</div></Link>
           </h2>
         </a>
         <div className="right aligned item">
