@@ -19,7 +19,7 @@ class MapContainer extends React.PureComponent {
     markers: [],
     categories: [],
     newMarker: [],
-    leftDisplay: 'all activities',
+    center: {lat: 43.587332, lng: -110.829230}
   }
 
 
@@ -113,7 +113,7 @@ class MapContainer extends React.PureComponent {
                 {...this.props}
                 renderForm={this.renderForm}
                 existingMarkers={this.state.markers}
-                currentLocation={{lat: 43.587332, lng: -110.829230}}
+                center={this.state.center}
                 onMarkerClick={this.handleMarkerClick}
               />
             </div>
