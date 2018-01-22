@@ -11,10 +11,14 @@ class Form extends React.Component {
     }
   }
 
+  // componentDidMount() {
+  //   props.activity ? this.setState({})
+  // }
+
   handleNameInput = (ev) => {
     this.setState({
       nameInput: ev.target.value
-    })    
+    })
   }
 
   handleDescInput = (ev) => {

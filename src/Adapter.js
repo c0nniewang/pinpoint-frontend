@@ -11,8 +11,8 @@ export const newActivity = (name, desc, cat_id, lat, long, user_id) => {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      name: name, 
-      description: desc, 
+      name: name,
+      description: desc,
       lat: lat,
       long: long,
       completed: false,
@@ -24,4 +24,14 @@ export const newActivity = (name, desc, cat_id, lat, long, user_id) => {
 export const fetchActivities = () => {
   return fetch(`http://localhost:3001/api/v1/activities`)
   .then(resp => resp.json())
+}
+
+export const deleteActivity = (id) => {
+  return fetch(`http://localhost:3001/api/v1/activities/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Action": "application/json",
+        "Content-Type": "application/json"
+        }
+      })
 }

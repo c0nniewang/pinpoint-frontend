@@ -15,8 +15,10 @@ export default class Navbar extends React.Component {
       <div className="ui inverted black menu">
         <a className="item">
           <h2 className="ui header">
-            <i className="paint brush" />
-            <Link to="/profile/activities"><div className="content">{this.props.title}</div></Link>
+            <Link to="/profile/activities">
+              <i className="inverted white map pin icon" />
+              <div className="content">{this.props.title}</div>
+            </Link>
           </h2>
         </a>
         <div className="right aligned item">

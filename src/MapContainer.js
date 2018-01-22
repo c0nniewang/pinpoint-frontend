@@ -2,7 +2,7 @@ import React from "react";
 import { compose, withProps } from "recompose";
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps";
 import Map from './Map';
-import { fetchCategories, newActivity, fetchActivities } from './Adapter';
+import { fetchCategories, newActivity, fetchActivities, deleteActivity } from './Adapter';
 import Navbar from './Navbar';
 import Form from './Form';
 import Activities from './Activities';
@@ -74,10 +74,27 @@ class MapContainer extends React.PureComponent {
     .then(data => this.setState({
       activities: [...this.state.activities, data],
       markers: [...this.state.markers, {lat: data.lat, lng: data.long}]
+    }, () => {
+      const id = this.state.activities[this.state.activities.length - 1].id
+      this.props.history.push(`/profile/activities/${id}`)
     })
     )
-    // render new show view here
   }
+
+  updateCenter = (activity) => {
+   console.log('this is update callback', activity)
+   this.setState({
+     center: {lat: activity.lat, lng: activity.lng}
+   })
+ }
+
+
+  handleDelete = e => {
+    const activities = this.state.activities.filter(act => act.id !== e);
+    this.setState({activities: activities})
+    deleteActivity(e)
+  }
+
 
   render() {
     console.log(this.state, this.props)
@@ -89,10 +106,10 @@ class MapContainer extends React.PureComponent {
             <div className="column">
               <Switch>
                 <Route exact path="/profile/activities" render={({match}) => {
-                  console.log(match.activities)
-                  return <Activities activities={this.state.activities} />
+                  return <Activities activities={this.state.activities} updateCenter={this.updateCenter} />
                 }}
                 />
+
                 <Route path="/profile/activities/new" render={() => {
                   return <Form
                             newMarker={this.state.newMarker}
@@ -101,9 +118,10 @@ class MapContainer extends React.PureComponent {
                           />
                   }}
                 />
+
                 <Route path="/profile/activities/:id" render={({match}) => {
                   const activity = this.state.activities.find(act => act.id === parseInt(match.params.id))
-                  return <ShowActivity activity={activity} />
+                  return <ShowActivity activity={activity} handleDelete={this.handleDelete} />
                 }}
                 />
               </Switch>

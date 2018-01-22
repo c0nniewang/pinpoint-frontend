@@ -16,7 +16,8 @@ const Map = compose(
     mapElement: <div style={{ height: `100%`, width: `100%`}} />,
   }),
   lifecycle({
-    componentWillMount() {
+
+    componentDidMount() {
       const refs = {}
 
       this.setState({
@@ -97,7 +98,7 @@ const Map = compose(
   </SearchBox>
     {props.markers[0] ?
           <MarkerWithLabel
-            onClick={() => console.log(this)}
+            onClick={() => props.renderForm(props.markers[0])}
             position={{...props.markers[0].position}}
             labelAnchor={new google.maps.Point(0, 0)}
             labelStyle={{backgroundColor: "white", fontSize: "17px", padding: "10px"}}
