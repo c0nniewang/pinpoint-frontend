@@ -3,7 +3,7 @@ import { compose, withProps } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 import Map from './Map'
 import { fetchCategories, newActivity, fetchActivities } from './Adapter';
-import Form from './Form';
+import LeftContainer from './LeftContainer'
 
 
 
@@ -15,7 +15,7 @@ class MapContainer extends React.PureComponent {
     markers: [],
     categories: [],
     newMarker: [],
-    showForm: false,
+    leftDisplay: 'all activities',
   }
 
 
@@ -70,7 +70,7 @@ class MapContainer extends React.PureComponent {
       activities: [...this.state.activities, data],
       markers: [...this.state.markers, {lat: data.lat, lng: data.long}]
     })
-    ) 
+    )
     // render new show view here
   }
 
@@ -79,7 +79,12 @@ class MapContainer extends React.PureComponent {
     return (
       <div className="ui two column stackable grid">
         <div className="column">
-          {this.state.showForm ? <Form newMarker={this.state.newMarker} categories={this.state.categories} newActivity={this.newActivity} /> : <p>Text</p>}
+          <LeftContainer
+            leftDisplay={this.state.leftDisplay}
+            newMarker={this.state.newMarker}
+            categories={this.state.categories}
+            newActivity={this.newActivity}
+          />
         </div>
         <div className="column">
           <Map
