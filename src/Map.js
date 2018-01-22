@@ -2,6 +2,7 @@ import React from "react"
 import { compose, withProps, lifecycle } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps";
 import MarkerComp from './MarkerComp'
+import { Link } from 'react-router-dom';
 const { MarkerWithLabel } = require("react-google-maps/lib/components/addons/MarkerWithLabel");
 const { SearchBox } = require("react-google-maps/lib/components/places/SearchBox")
 const google = window.google
@@ -67,7 +68,7 @@ const Map = compose(
     defaultCenter={props.currentLocation}
     center={props.center}
   >
-  
+
   {props.existingMarkers.map((marker, index) => <MarkerComp key={index} properties={marker} onMarkerClick={props.onMarkerClick}/>)}
 
   <SearchBox
@@ -95,14 +96,16 @@ const Map = compose(
     />
   </SearchBox>
     {props.markers[0] ?
-        <MarkerWithLabel
-          onClick={() => props.renderForm(props.markers[0])}
-          position={{...props.markers[0].position}}
-          labelAnchor={new google.maps.Point(0, 0)}
-          labelStyle={{backgroundColor: "white", fontSize: "17px", padding: "10px"}}
-        >
-          <div>Add New Activity</div>
-        </MarkerWithLabel>
+          <MarkerWithLabel
+            onClick={() => console.log(this)}
+            position={{...props.markers[0].position}}
+            labelAnchor={new google.maps.Point(0, 0)}
+            labelStyle={{backgroundColor: "white", fontSize: "17px", padding: "10px"}}
+          >
+            <div>
+              Add New Activity
+            </div>
+          </MarkerWithLabel>
         : null}
   </GoogleMap>
 )
