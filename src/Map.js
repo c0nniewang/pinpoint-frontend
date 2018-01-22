@@ -18,10 +18,11 @@ const Map = compose(
   lifecycle({
     componentWillMount() {
       const refs = {}
-
+      const newLocation = this.props.center ? this.props.center : {lat:40.719403, lng:-73.996870}
+      console.log('inside google maps', this.props)
       this.setState({
         bounds: null,
-        center: {lat: 43.587332, lng: -110.829230},
+        center: newLocation,
         markers: [],
         onMapMounted: ref => {
           refs.map = ref;
@@ -65,7 +66,7 @@ const Map = compose(
 )((props) =>
   <GoogleMap
     defaultZoom={15}
-    defaultCenter={props.currentLocation}
+    defaultCenter={props.center}
     center={props.center}
   >
 

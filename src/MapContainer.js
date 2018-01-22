@@ -76,8 +76,14 @@ class MapContainer extends React.PureComponent {
       markers: [...this.state.markers, {lat: data.lat, lng: data.long}]
     })
     )
-    // render new show view here
   }
+
+  updateCenter = (activity) => {
+    console.log('this is update callback', activity)
+    this.setState({
+      center: {lat: activity.lat, lng: activity.long}
+    })
+  } 
 
   render() {
     console.log(this.state, this.props)
@@ -103,7 +109,7 @@ class MapContainer extends React.PureComponent {
                 />
                 <Route path="/profile/activities/:id" render={({match}) => {
                   const activity = this.state.activities.find(act => act.id === parseInt(match.params.id))
-                  return <ShowActivity activity={activity} />
+                  return <ShowActivity activity={activity} center={this.state.center} updateCenter={this.updateCenter}/>
                 }}
                 />
               </Switch>
