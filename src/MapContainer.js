@@ -20,6 +20,12 @@ class MapContainer extends React.PureComponent {
   }
 
   componentDidMount() {
+    navigator.geolocation.getCurrentPosition(position => this.setState(
+      {currentLocation: {lat: position.coords.latitude, lng: position.coords.longitude},
+        center: {lat: position.coords.latitude, lng: position.coords.longitude}
+      }
+    ))
+
     fetchCategories().then(data => {
       this.setState({
         categories: data
@@ -37,7 +43,6 @@ class MapContainer extends React.PureComponent {
     const markers = this.state.activities.map(activity => {
       return {lat: activity.lat, lng: activity.long}
     })
-    // console.log('logging all markers', markers)
 
     this.setState({
       markers: markers
@@ -48,7 +53,7 @@ class MapContainer extends React.PureComponent {
     // console.log('in RENDER FORM', event)
 
     const activity = this.state.activities[event]
-    console.log('event activity', activity)
+    // console.log('event activity', activity)
 
     if (activity === undefined) {
       this.props.history.push('/profile/activities/new')
@@ -82,7 +87,7 @@ class MapContainer extends React.PureComponent {
   }
 
   updateCenter = (activity) => {
-   console.log('this is update callback', activity)
+   // console.log('this is update callback', activity)
    this.setState({
      center: {lat: activity.lat, lng: activity.lng},
      zoom: 13
@@ -99,8 +104,17 @@ class MapContainer extends React.PureComponent {
 
 
   handleDelete = e => {
+    const activity = this.state.activities.find(act => act.id === e)
     const activities = this.state.activities.filter(act => act.id !== e);
-    this.setState({activities: activities})
+    const markerToDelete = this.state.markers.find( marker => marker.lat === activity.lat && marker.lng === activity.long)
+    const markers = this.state.markers.filter(marker => marker !== markerToDelete)
+
+    this.setState({
+      activities: activities, 
+      center: this.state.currentLocation, 
+      markers: markers, 
+      zoom: 11})
+    
     deleteActivity(e)
   }
 
@@ -110,7 +124,7 @@ class MapContainer extends React.PureComponent {
 
 
   render() {
-    console.log('in map container RENDER', this.state)
+    // console.log('in map container RENDER', this.state)
     return (
       <div>
         <Navbar returnCurrentLocation={this.returnCurrentLocation} title={"Pinpoint"} description={"desc here"}/>
@@ -143,7 +157,7 @@ class MapContainer extends React.PureComponent {
               </Switch>
             </div>
             <div className="column">
-              <div style={{width: '100%', height: '500px'}}>
+              <div style={{width: '90%', height: '450px'}}>
                 <Map
                   existingMarkers={this.state.markers}
                   currentLocation={this.state.currentLocation}
@@ -156,7 +170,6 @@ class MapContainer extends React.PureComponent {
                 />
               </div>
             </div>
-            <Link to="/profile/activities/new" className="new-activity-form">TESTING DIV</Link>
           </div>
         </div>
       </div>

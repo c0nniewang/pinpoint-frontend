@@ -12,7 +12,7 @@ export default class Navbar extends React.Component {
 
   render() {
     return (
-      <div className="ui inverted black menu">
+      <div className="ui inverted black menu fixed">
         <a onClick={this.props.returnCurrentLocation} className="item">
           <h2 className="ui header">
             <Link to="/profile/activities">
