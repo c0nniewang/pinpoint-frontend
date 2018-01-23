@@ -21,7 +21,7 @@ class Login extends React.Component {
   }
 
   handleSubmit = e => {
-    e.preventDefault();
+    console.log(e)
     login(this.state.fields.email, this.state.fields.password).then(json => {
       if (json.error) {
         this.setState({ error: true });
@@ -51,16 +51,23 @@ class Login extends React.Component {
                   <div class="field">
                     <div class="ui left icon input">
                       <i class="user icon"></i>
-                      <input type="text" name="email" placeholder="E-mail address" />
+                      <input type="text" name="email"
+                          placeholder="email"
+                          value={fields.email}
+                          onChange={this.handleChange}/>
                     </div>
                   </div>
                   <div class="field">
                     <div class="ui left icon input">
                       <i class="lock icon"></i>
-                      <input type="password" name="password" placeholder="Password" />
+                      <input type="password" name="password"
+                            type="password"
+                            placeholder="password"
+                            value={fields.password}
+                            onChange={this.handleChange} />
                     </div>
                   </div>
-                  <div class="ui fluid large teal submit button">Login</div>
+                  <div class="ui fluid large teal submit button" onClick={this.handleSubmit}>Login</div>
                 </div>
 
                 <div class="ui error message"></div>

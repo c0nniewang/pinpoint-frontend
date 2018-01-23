@@ -26,8 +26,11 @@ class App extends Component {
               }}
             />
           <Route
-              path="/profile"
-              render={() => {<MapContainer />}}
+              path="/profile/activities"
+              render={routerProps => {
+                return (<MapContainer {...routerProps} />
+              )
+            }}
           />
         </Switch>
       </div>
