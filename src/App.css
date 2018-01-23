@@ -27,6 +27,11 @@
   to { transform: rotate(360deg); }
 }
 
+.search-bar {
+  align: center;
+  width: 100px;
+  height: 25px;
+}
 
 .content {
   color: white;

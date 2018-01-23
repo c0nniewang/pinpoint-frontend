@@ -13,7 +13,7 @@ export default class Navbar extends React.Component {
   render() {
     return (
       <div className="ui inverted black menu">
-        <a className="item">
+        <a onClick={this.props.returnCurrentLocation} className="item">
           <h2 className="ui header">
             <Link to="/profile/activities">
               <i className="inverted white map pin icon" />
