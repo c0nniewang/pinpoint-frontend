@@ -29,8 +29,8 @@ export default class Navbar extends React.Component {
           </a>
 
           <div className="right aligned item">
-            <div className="ui floated button">
-              Log In / Out
+            <div className="ui floated button" onClick={this.props.handleLogout}>
+              Log Out
             </div>
           </div>
         </div>

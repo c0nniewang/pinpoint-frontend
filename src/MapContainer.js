@@ -20,6 +20,9 @@ class MapContainer extends React.PureComponent {
   }
 
   componentDidMount() {
+
+    console.log('CURRENT USER', this.props.currentUser)
+
     navigator.geolocation.getCurrentPosition(position => this.setState(
       {currentLocation: {lat: position.coords.latitude, lng: position.coords.longitude},
         center: {lat: position.coords.latitude, lng: position.coords.longitude}
@@ -31,10 +34,12 @@ class MapContainer extends React.PureComponent {
         categories: data
       })
     })
+    const id = this.props.currentUser.id
 
-    fetchActivities().then(data => {
+    fetchActivities(id).then(data => {
+      console.log('THIS IS DATA', data)
       this.setState({
-        activities: data
+        activities: data.activities
       }, () => this.setMarkers())
     })
   }
@@ -50,10 +55,7 @@ class MapContainer extends React.PureComponent {
   }
 
   renderForm = (event) => {
-    // console.log('in RENDER FORM', event)
-
     const activity = this.state.activities[event]
-    // console.log('event activity', activity)
 
     if (activity === undefined) {
       this.props.history.push('/profile/activities/new')
@@ -70,7 +72,7 @@ class MapContainer extends React.PureComponent {
     const cat_id = parseInt(state.currentCat)
     const lat = this.state.newMarker.lat
     const long = this.state.newMarker.lng
-    const user_id = 1
+    const user_id = this.props.currentUser.id
     // fix with authorization
 
     newActivity(name, desc, cat_id, lat, long, user_id)
@@ -124,7 +126,12 @@ class MapContainer extends React.PureComponent {
   render() {
     return (
       <div>
-        <Navbar returnCurrentLocation={this.returnCurrentLocation} title={"Pinpoint"} description={"desc here"}/>
+        <Navbar 
+        returnCurrentLocation={this.returnCurrentLocation} 
+        title={"Pinpoint"} 
+        description={"desc here"}
+        handleLogout={this.props.handleLogout}/>
+        
         <div className="ui grid container">
           <div className="ui two column stackable grid">
             <div className="column">

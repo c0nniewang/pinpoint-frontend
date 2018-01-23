@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import MapContainer from './MapContainer'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, withRouter } from 'react-router-dom'
 import Login from './Login'
 
 class App extends Component {
@@ -9,8 +9,14 @@ class App extends Component {
 
   handleLogin = (user) => {
     const currentUser = {currentUser: user}
-    localStorage.setItem('token', 1)
+    localStorage.setItem('token', user.id)
     this.setState({login: currentUser})
+  }
+
+  handleLogout = (ev) => {
+    console.log(ev)
+    this.setState({login: {currentUser: {}} })
+    this.props.history.push('/login')
   }
 
   render() {
@@ -28,7 +34,7 @@ class App extends Component {
           <Route
               path="/profile/activities"
               render={routerProps => {
-                return (<MapContainer {...routerProps} />
+                return (<MapContainer {...routerProps} currentUser={this.state.login.currentUser} handleLogout={this.handleLogout}/>
               )
             }}
           />
@@ -38,4 +44,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

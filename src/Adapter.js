@@ -21,8 +21,8 @@ export const newActivity = (name, desc, cat_id, lat, long, user_id) => {
   }).then(resp => resp.json())
 }
 
-export const fetchActivities = () => {
-  return fetch(`http://localhost:3001/api/v1/activities`)
+export const fetchActivities = (id) => {
+  return fetch(`http://localhost:3001/api/v1/users/${id}`)
   .then(resp => resp.json())
 }
 
