@@ -20,6 +20,7 @@ class Map extends Component {
 
         <CurrentLocation lat={this.props.currentLocation.lat} lng={this.props.currentLocation.lng} />
 
+        <SearchBox />
         {this.props.existingMarkers.map((marker, i) => {
           return <MarkerComp key={i} lat={marker.lat} lng={marker.lng} text={'A'} />
         })}
