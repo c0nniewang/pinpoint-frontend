@@ -21,9 +21,17 @@ export default class Navbar extends React.Component {
             </Link>
           </h2>
         </a>
-        <div className="right aligned item">
-          <div className="ui floated button">
-            Log In / Out
+        <div className="right menu">
+          <a onClick={this.props.returnCurrentLocation} className="right aligned item">
+              <Link to="/profile/activities">
+                <div className="content">All Activities</div>
+              </Link>
+          </a>
+
+          <div className="right aligned item">
+            <div className="ui floated button">
+              Log In / Out
+            </div>
           </div>
         </div>
       </div>

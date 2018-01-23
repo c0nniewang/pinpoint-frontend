@@ -64,7 +64,6 @@ class MapContainer extends React.PureComponent {
   }
 
   newActivity = (state) => {
-    // console.log(this.state.newMarker.position.lat)
 
     const name = state.nameInput
     const desc = state.descInput
@@ -87,7 +86,6 @@ class MapContainer extends React.PureComponent {
   }
 
   updateCenter = (activity) => {
-   // console.log('this is update callback', activity)
    this.setState({
      center: {lat: activity.lat, lng: activity.lng},
      zoom: 13
@@ -124,7 +122,6 @@ class MapContainer extends React.PureComponent {
 
 
   render() {
-    // console.log('in map container RENDER', this.state)
     return (
       <div>
         <Navbar returnCurrentLocation={this.returnCurrentLocation} title={"Pinpoint"} description={"desc here"}/>
