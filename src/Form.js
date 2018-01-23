@@ -39,6 +39,8 @@ class Form extends React.Component {
       return <option key={cat.id} value={cat.id}>{cat.name}</option>
     })
 
+    console.log('FORM STATE', this.state)
+
     return (
         <form className="ui form" >
             <h4 className="ui dividing header">New Activity</h4>

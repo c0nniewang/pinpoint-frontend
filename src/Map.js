@@ -24,7 +24,7 @@ class Map extends Component {
 
         <SearchBox updateSearchCenter={this.props.updateSearchCenter} />
         {this.props.existingMarkers.map((marker, i) => {
-          return <MarkerComp key={i} lat={marker.lat} lng={marker.lng} color={"red"}/>
+          return <MarkerComp className="existingMarker" key={i} lat={marker.lat} lng={marker.lng} color={"red"}/>
         })}
 
         <MarkerComp lat={this.props.newMarker.lat} lng={this.props.newMarker.lng} color={"green"} />

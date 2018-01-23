@@ -37,42 +37,43 @@ class MapContainer extends React.PureComponent {
     const markers = this.state.activities.map(activity => {
       return {lat: activity.lat, lng: activity.long}
     })
-    console.log('logging all markers', markers)
+    // console.log('logging all markers', markers)
 
     this.setState({
       markers: markers
     })
   }
 
-  handleMarkerClick = (event) => {
-    console.log(event.latLng.lat())
-    // this.delayedShowMarker()
-  }
+  renderForm = (event) => {
+    // console.log('in RENDER FORM', event)
 
-  renderForm = (newMarker, existingMarkers, event) => {
-    console.log('in RENDER FORM', event, newMarker, existingMarkers)
-    // if (this.state.newMarker.lat === marker.lat && this.state.newMarker.lng === marker.lng) {
-    //   this.props.history.push('/profile/activities/new')
-    // } else {
-    //   (console.log('existing markers', marker))
-    // }
+    const activity = this.state.activities[event]
+    console.log('event activity', activity)
+
+    if (activity === undefined) {
+      this.props.history.push('/profile/activities/new')
+
+    } else {
+      this.props.history.push(`/profile/activities/${activity.id}`)
+    }
   }
 
   newActivity = (state) => {
-    console.log(this.state.newMarker.position.lat)
+    // console.log(this.state.newMarker.position.lat)
 
     const name = state.nameInput
     const desc = state.descInput
     const cat_id = parseInt(state.currentCat)
-    const lat = this.state.newMarker.position.lat
-    const long = this.state.newMarker.position.lng
+    const lat = this.state.newMarker.lat
+    const long = this.state.newMarker.lng
     const user_id = 1
     // fix with authorization
 
     newActivity(name, desc, cat_id, lat, long, user_id)
     .then(data => this.setState({
       activities: [...this.state.activities, data],
-      markers: [...this.state.markers, {lat: data.lat, lng: data.long}]
+      markers: [...this.state.markers, {lat: data.lat, lng: data.long}],
+      newMarker: []
     }, () => {
       const id = this.state.activities[this.state.activities.length - 1].id
       this.props.history.push(`/profile/activities/${id}`)
@@ -109,7 +110,7 @@ class MapContainer extends React.PureComponent {
 
 
   render() {
-    console.log(this.state, this.props)
+    console.log('in map container RENDER', this.state)
     return (
       <div>
         <Navbar returnCurrentLocation={this.returnCurrentLocation} title={"Pinpoint"} description={"desc here"}/>
