@@ -2,7 +2,12 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 
+<<<<<<< HEAD
 const ShowActivity = ({activity, handleDelete}) => {
+=======
+const ShowActivity = ({activity}) => {
+  
+>>>>>>> 0d5ac7ad84acf4d05798f9a351b5eed54dec0a0c
   return activity ? (
                 <div>
                   <h1>{activity.name}</h1>
