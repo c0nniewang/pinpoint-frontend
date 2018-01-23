@@ -19,7 +19,6 @@ class MapContainer extends React.PureComponent {
     zoom: 11,
   }
 
-
   componentDidMount() {
     fetchCategories().then(data => {
       this.setState({
@@ -50,10 +49,13 @@ class MapContainer extends React.PureComponent {
     // this.delayedShowMarker()
   }
 
-  renderForm = (marker) => {
-    // console.log(marker)
-    this.setState({newMarker: marker})
-    console.log(window.history)
+  renderForm = (newMarker, existingMarkers, event) => {
+    console.log('in RENDER FORM', event, newMarker, existingMarkers)
+    // if (this.state.newMarker.lat === marker.lat && this.state.newMarker.lng === marker.lng) {
+    //   this.props.history.push('/profile/activities/new')
+    // } else {
+    //   (console.log('existing markers', marker))
+    // }
   }
 
   newActivity = (state) => {
@@ -84,6 +86,14 @@ class MapContainer extends React.PureComponent {
      center: {lat: activity.lat, lng: activity.lng},
      zoom: 13
    })
+ }
+
+ updateSearchCenter = (search) => {
+  this.setState({
+    center: {lat: search[0].geometry.viewport.f.f, lng: search[0].geometry.viewport.b.b},
+    newMarker: {lat: search[0].geometry.viewport.f.f, lng: search[0].geometry.viewport.b.b},
+    zoom: 13
+  })
  }
 
 
@@ -139,6 +149,9 @@ class MapContainer extends React.PureComponent {
                   onMarkerClick={this.handleMarkerClick}
                   center={this.state.center}
                   zoom={this.state.zoom}
+                  updateSearchCenter={this.updateSearchCenter}
+                  newMarker={this.state.newMarker}
+                  renderForm={this.renderForm}
                 />
               </div>
             </div>

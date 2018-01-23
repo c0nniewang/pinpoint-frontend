@@ -16,14 +16,19 @@ class Map extends Component {
       <GoogleMap
         apiKey={'AIzaSyAmQAIYOMn9ab-TVOpH1VJQyVqxoagNII4'}
         center={this.props.center}
-        zoom={this.props.zoom}>
+        zoom={this.props.zoom}
+        onChildClick={(event) => this.props.renderForm(event)}
+        >
 
         <CurrentLocation lat={this.props.currentLocation.lat} lng={this.props.currentLocation.lng} />
 
-        <SearchBox />
+        <SearchBox updateSearchCenter={this.props.updateSearchCenter} />
         {this.props.existingMarkers.map((marker, i) => {
-          return <MarkerComp key={i} lat={marker.lat} lng={marker.lng} text={'A'} />
+          return <MarkerComp key={i} lat={marker.lat} lng={marker.lng} color={"red"}/>
         })}
+
+        <MarkerComp lat={this.props.newMarker.lat} lng={this.props.newMarker.lng} color={"green"} />
+
       </GoogleMap>
     );
   }
