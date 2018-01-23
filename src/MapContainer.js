@@ -1,17 +1,12 @@
 import React from "react";
-import { compose, withProps } from "recompose";
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps";
-import Map from './Map';
 import { fetchCategories, newActivity, fetchActivities, deleteActivity } from './Adapter';
 import Navbar from './Navbar';
 import Form from './Form';
 import Activities from './Activities';
 import ShowActivity from './ShowActivity';
 import { Route, Switch, Link, withRouter } from 'react-router-dom';
+import Map from './Map.js'
 
-
-
-const test = [{lat:40.719403, lng:-73.996870}, {lat: 43.587332, lng: -110.829230}, {lat:40.772728, lng:-73.983467}]
 
 class MapContainer extends React.PureComponent {
   state = {
@@ -19,7 +14,9 @@ class MapContainer extends React.PureComponent {
     markers: [],
     categories: [],
     newMarker: [],
-    leftDisplay: 'all activities',
+    currentLocation: {lat:43.519145, lng: -110.841258},
+    center: {lat:43.519145, lng: -110.841258},
+    zoom: 11,
   }
 
 
@@ -41,7 +38,7 @@ class MapContainer extends React.PureComponent {
     const markers = this.state.activities.map(activity => {
       return {lat: activity.lat, lng: activity.long}
     })
-    console.log(markers)
+    console.log('logging all markers', markers)
 
     this.setState({
       markers: markers
@@ -84,7 +81,8 @@ class MapContainer extends React.PureComponent {
   updateCenter = (activity) => {
    console.log('this is update callback', activity)
    this.setState({
-     center: {lat: activity.lat, lng: activity.lng}
+     center: {lat: activity.lat, lng: activity.lng},
+     zoom: 13
    })
  }
 
@@ -95,18 +93,25 @@ class MapContainer extends React.PureComponent {
     deleteActivity(e)
   }
 
+  returnCurrentLocation = e => {
+    this.setState({center: this.state.currentLocation, zoom: 11})
+  }
+
 
   render() {
     console.log(this.state, this.props)
     return (
       <div>
-        <Navbar title={"Pinpoint"} description={"desc here"}/>
+        <Navbar returnCurrentLocation={this.returnCurrentLocation} title={"Pinpoint"} description={"desc here"}/>
         <div className="ui grid container">
           <div className="ui two column stackable grid">
             <div className="column">
               <Switch>
                 <Route exact path="/profile/activities" render={({match}) => {
-                  return <Activities activities={this.state.activities} updateCenter={this.updateCenter} />
+                  return (<Activities activities={this.state.activities}
+                                     updateCenter={this.updateCenter}
+                                     zoom={this.state.zoom}
+                           />)
                 }}
                 />
 
@@ -127,13 +132,15 @@ class MapContainer extends React.PureComponent {
               </Switch>
             </div>
             <div className="column">
-              <Map
-                {...this.props}
-                renderForm={this.renderForm}
-                existingMarkers={this.state.markers}
-                currentLocation={{lat: 43.587332, lng: -110.829230}}
-                onMarkerClick={this.handleMarkerClick}
-              />
+              <div style={{width: '100%', height: '500px'}}>
+                <Map
+                  existingMarkers={this.state.markers}
+                  currentLocation={this.state.currentLocation}
+                  onMarkerClick={this.handleMarkerClick}
+                  center={this.state.center}
+                  zoom={this.state.zoom}
+                />
+              </div>
             </div>
             <Link to="/profile/activities/new" className="new-activity-form">TESTING DIV</Link>
           </div>
