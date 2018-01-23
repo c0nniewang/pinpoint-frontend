@@ -14,13 +14,9 @@ class MapContainer extends React.PureComponent {
     markers: [],
     categories: [],
     newMarker: [],
-<<<<<<< HEAD
-    center: {lat: 43.587332, lng: -110.829230}
-=======
     currentLocation: {lat:43.519145, lng: -110.841258},
     center: {lat:43.519145, lng: -110.841258},
     zoom: 11,
->>>>>>> google-maps-react
   }
 
 
