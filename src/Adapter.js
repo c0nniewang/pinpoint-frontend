@@ -35,3 +35,14 @@ export const deleteActivity = (id) => {
         }
       })
 }
+
+export const login = (email, password) => {
+  return fetch('http://localhost:3001/api/v1/auth', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({email, password})
+  }).then(resp => resp.json());
+}

@@ -1,0 +1,76 @@
+import React from 'react';
+import { login } from './Adapter.js';
+
+
+class Login extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      error: false,
+      fields: {
+        email: '',
+        password: ''
+      }
+    }
+  }
+
+  handleChange = e => {
+    const newFields = {...this.state.fields, [e.target.name]: e.target.value};
+    this.setState({fields: newFields});
+  }
+
+  handleSubmit = e => {
+    e.preventDefault();
+    login(this.state.fields.email, this.state.fields.password).then(json => {
+      if (json.error) {
+        this.setState({ error: true });
+      } else {
+        this.props.handleLogin(json)
+        this.props.history.push('/profile/activities')
+      }
+    })
+  }
+
+  render() {
+    const { fields } = this.state;
+    return (
+      <div className="login-style">
+        {this.state.error ? <h1>Try Again</h1> : null}
+        <div class="ui middle aligned center aligned grid">
+            <div class="column">
+              <h2 class="ui teal image header">
+                <i class="map pin icon"/>
+                <div class="title">Pinpoint</div>
+                <div class="title">
+                  Log-in to your account
+                </div>
+              </h2>
+              <form class="ui large form">
+                <div class="ui stacked segment">
+                  <div class="field">
+                    <div class="ui left icon input">
+                      <i class="user icon"></i>
+                      <input type="text" name="email" placeholder="E-mail address" />
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="ui left icon input">
+                      <i class="lock icon"></i>
+                      <input type="password" name="password" placeholder="Password" />
+                    </div>
+                  </div>
+                  <div class="ui fluid large teal submit button">Login</div>
+                </div>
+
+                <div class="ui error message"></div>
+
+              </form>
+              </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default Login;
