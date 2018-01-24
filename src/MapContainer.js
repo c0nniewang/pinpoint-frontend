@@ -124,11 +124,11 @@ class MapContainer extends React.PureComponent {
     const markers = this.state.markers.filter(marker => marker !== markerToDelete)
 
     this.setState({
-      activities: activities, 
-      center: this.state.currentLocation, 
-      markers: markers, 
+      activities: activities,
+      center: this.state.currentLocation,
+      markers: markers,
       zoom: 11})
-    
+
     deleteActivity(e)
   }
 
@@ -141,9 +141,10 @@ class MapContainer extends React.PureComponent {
     console.log("RENDERING")
     return (
       <div>
-        <Navbar 
-        returnCurrentLocation={this.returnCurrentLocation} 
-        title={"Pinpoint"} 
+        <Navbar
+        currentUser={this.props.currentUser}
+        returnCurrentLocation={this.returnCurrentLocation}
+        title={"Pinpoint"}
         description={"desc here"}
         handleLogout={this.props.handleLogout}/>
 
@@ -176,18 +177,18 @@ class MapContainer extends React.PureComponent {
               </Switch>
             </div>
             <div className="column">
-              <div style={{width: '90%', height: '450px'}}>
-                <Map
-                  existingMarkers={this.state.markers}
-                  currentLocation={this.state.currentLocation}
-                  onMarkerClick={this.handleMarkerClick}
-                  center={this.state.center}
-                  zoom={this.state.zoom}
-                  updateSearchCenter={this.updateSearchCenter}
-                  newMarker={this.state.newMarker}
-                  renderForm={this.renderForm}
-                />
-              </div>
+                <div style={{width: '90%', height: '450px'}}>
+                  <Map
+                    existingMarkers={this.state.markers}
+                    currentLocation={this.state.currentLocation}
+                    onMarkerClick={this.handleMarkerClick}
+                    center={this.state.center}
+                    zoom={this.state.zoom}
+                    updateSearchCenter={this.updateSearchCenter}
+                    newMarker={this.state.newMarker}
+                    renderForm={this.renderForm}
+                  />
+                </div>
             </div>
           </div>
         </div>
