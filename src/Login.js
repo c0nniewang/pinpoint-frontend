@@ -21,7 +21,7 @@ class Login extends React.Component {
   }
 
   handleSubmit = e => {
-    console.log(e)
+    console.log(this.state.fields.email)
     login(this.state.fields.email, this.state.fields.password).then(json => {
       if (json.error) {
         this.setState({ error: true });

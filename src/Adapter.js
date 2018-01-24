@@ -28,12 +28,12 @@ export const fetchActivities = (id) => {
 
 export const deleteActivity = (id) => {
   return fetch(`http://localhost:3001/api/v1/activities/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Action": "application/json",
-        "Content-Type": "application/json"
-        }
-      })
+    method: "DELETE",
+    headers: {
+      "Action": "application/json",
+      "Content-Type": "application/json"
+      }
+    })
 }
 
 export const login = (email, password) => {
@@ -45,4 +45,14 @@ export const login = (email, password) => {
     },
     body: JSON.stringify({email, password})
   }).then(resp => resp.json());
+}
+
+const token = localStorage.getItem('token')
+
+export const getCurrentUser = () => {
+  return fetch('http://localhost:3001/api/v1/current_user', {
+    headers: {
+      Authorization: token
+    }
+  }).then(resp => resp.json())
 }

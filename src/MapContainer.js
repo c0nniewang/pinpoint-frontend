@@ -20,28 +20,43 @@ class MapContainer extends React.PureComponent {
   }
 
   componentDidMount() {
-
-    console.log('CURRENT USER', this.props.currentUser)
-
     navigator.geolocation.getCurrentPosition(position => this.setState(
       {currentLocation: {lat: position.coords.latitude, lng: position.coords.longitude},
         center: {lat: position.coords.latitude, lng: position.coords.longitude}
       }
     ))
 
+  if (this.props.currentUser.id) {
     fetchCategories().then(data => {
       this.setState({
         categories: data
       })
     })
+
     const id = this.props.currentUser.id
 
     fetchActivities(id).then(data => {
-      console.log('THIS IS DATA', data)
+        this.setState({
+          activities: data.activities
+        }, () => this.setMarkers())
+    })}
+  }
+
+  componentWillReceiveProps() {
+    if (this.props.currentUser.id) {
+    fetchCategories().then(data => {
       this.setState({
-        activities: data.activities
-      }, () => this.setMarkers())
+        categories: data
+      })
     })
+
+    const id = this.props.currentUser.id
+
+    fetchActivities(id).then(data => {
+        this.setState({
+          activities: data.activities
+        }, () => this.setMarkers())
+    })}
   }
 
   setMarkers = () => {
@@ -73,7 +88,6 @@ class MapContainer extends React.PureComponent {
     const lat = this.state.newMarker.lat
     const long = this.state.newMarker.lng
     const user_id = this.props.currentUser.id
-    // fix with authorization
 
     newActivity(name, desc, cat_id, lat, long, user_id)
     .then(data => this.setState({
@@ -124,6 +138,7 @@ class MapContainer extends React.PureComponent {
 
 
   render() {
+    console.log("RENDERING")
     return (
       <div>
         <Navbar 
@@ -131,7 +146,7 @@ class MapContainer extends React.PureComponent {
         title={"Pinpoint"} 
         description={"desc here"}
         handleLogout={this.props.handleLogout}/>
-        
+
         <div className="ui grid container">
           <div className="ui two column stackable grid">
             <div className="column">
