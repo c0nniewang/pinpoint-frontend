@@ -17,9 +17,36 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
-  max-width: 450px;
+  max-width: 500px;
+  margin-top: 110px;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+  z-index: -1;
+}
+
+.background {
+  min-height: 100%;
+  min-width: 1024px;
+
+  /* Set up proportionate scaling */
+  width: 100%;
+  height: auto;
+
+  /* Set up positioning */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -2;
+
+  background-image: url("http://localhost:3000/image/background.jpeg") !important;
+  background-size: cover !important;
 }
 
 .title {
-  color: black;
+  color: rgba(0,0,0, 0.8);
+}
+
+.large.form {
+  z-index: 0;
 }

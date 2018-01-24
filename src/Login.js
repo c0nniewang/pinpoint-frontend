@@ -35,14 +35,17 @@ class Login extends React.Component {
   render() {
     const { fields } = this.state;
     return (
+    <div>
+    <div className="background">
+    </div>
       <div className="login-style">
         {this.state.error ? <h1>Try Again</h1> : null}
         <div class="ui middle aligned center aligned grid">
             <div class="column">
-              <h2 class="ui teal image header">
+              <h2 class="ui gray image header">
                 <h1><i class="map pin icon"/>Pinpoint</h1>
                 <div class="title">
-                  Log-in to your account
+                  Log in to your account
                 </div>
               </h2>
               <form class="ui large form">
@@ -75,6 +78,7 @@ class Login extends React.Component {
               </div>
         </div>
       </div>
+    </div>
     );
   }
 }
