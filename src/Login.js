@@ -43,7 +43,7 @@ class Login extends React.Component {
         <div class="ui middle aligned center aligned grid">
             <div class="column">
               <h2 class="ui gray image header">
-                <h1><i class="map pin icon"/>Pinpoint</h1>
+                <h1><i class="red map pin icon"/>Pinpoint</h1>
                 <div class="title">
                   Log in to your account
                 </div>

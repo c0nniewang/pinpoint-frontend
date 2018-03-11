@@ -102,11 +102,11 @@ class MapContainer extends React.PureComponent {
   }
 
   updateCenter = (activity) => {
-   this.setState({
-     center: {lat: activity.lat, lng: activity.lng},
-     zoom: 13
-   })
- }
+    this.setState({
+      center: {lat: activity.lat, lng: activity.lng},
+      zoom: 13
+    })
+  }
 
  updateSearchCenter = (search) => {
   this.setState({
